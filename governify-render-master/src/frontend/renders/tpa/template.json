@@ -181,6 +181,31 @@
                     }
                 }
             },
+            "NUMBER_OF_PENDING_ISSUES": {
+                "computer": {
+                    "name": "/indicators/NUMBER_OF_PENDING_ISSUES",
+                    "url": "http://localhost:8082",
+                    "apiVersion": "1",
+                    "config": {
+                        "schedules": {
+                            "24x7": "L-DT00:00-23:59/H",
+                            "normal": "[{\"from\":\"1/1\",\"to\":\"6/14\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"6/15\",\"to\":\"9/15\",\"schedule\":\"L-VT08:30-15:00/H\"},{\"from\":\"9/16\",\"to\":\"12/23\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/24\",\"to\":\"12/24\",\"schedule\":\"L-VT09:00-13:00/H\"},{\"from\":\"12/25\",\"to\":\"12/30\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/31\",\"to\":\"12/31\",\"schedule\":\"L-VT09:00-13:00/H\"}]"
+                        },
+                        "holidays": "http://localhost:8081/static/holidays.json"
+                    }
+                },
+                "measure": {
+                    "computing": "actual",
+                    "element": "number",
+                    "filters": {
+                        "type": "feature,bug,chore",
+                        "state": "to_do"
+                    },
+                    "scope": {
+                        "$ref": "#/context/definitions/scopes/development"
+                    }
+                }
+            },
             "REMAINING_POINTS": {
                 "computer": {
                     "name": "/indicators/REMAINING_POINTS",
@@ -332,6 +357,56 @@
                             "toState": "delivered",
                             "duration": "< 60"
                         }
+                    },
+                    "scope": {
+                        "$ref": "#/context/definitions/scopes/development"
+                    }
+                }
+            },
+            "FINISHED_BUG_POINTS": {
+                "computer": {
+                    "name": "/indicators/FINISHED_BUG_POINTS",
+                    "url": "http://localhost:8082",
+                    "apiVersion": "1",
+                    "config": {
+                        "schedules": {
+                            "24x7": "L-DT00:00-23:59/H",
+                            "normal": "[{\"from\":\"1/1\",\"to\":\"6/14\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"6/15\",\"to\":\"9/15\",\"schedule\":\"L-VT08:30-15:00/H\"},{\"from\":\"9/16\",\"to\":\"12/23\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/24\",\"to\":\"12/24\",\"schedule\":\"L-VT09:00-13:00/H\"},{\"from\":\"12/25\",\"to\":\"12/30\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/31\",\"to\":\"12/31\",\"schedule\":\"L-VT09:00-13:00/H\"}]"
+                        },
+                        "holidays": "http://localhost:8081/static/holidays.json"
+                    }
+                },
+                "measure": {
+                    "computing": "actual",
+                    "element": "points",
+                    "filters": {
+                        "type": "bug",
+                        "state": "done"
+                    },
+                    "scope": {
+                        "$ref": "#/context/definitions/scopes/development"
+                    }
+                }
+            },
+            "PENDING_BUG_POINTS": {
+                "computer": {
+                    "name": "/indicators/PENDING_BUG_POINTS",
+                    "url": "http://localhost:8082",
+                    "apiVersion": "1",
+                    "config": {
+                        "schedules": {
+                            "24x7": "L-DT00:00-23:59/H",
+                            "normal": "[{\"from\":\"1/1\",\"to\":\"6/14\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"6/15\",\"to\":\"9/15\",\"schedule\":\"L-VT08:30-15:00/H\"},{\"from\":\"9/16\",\"to\":\"12/23\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/24\",\"to\":\"12/24\",\"schedule\":\"L-VT09:00-13:00/H\"},{\"from\":\"12/25\",\"to\":\"12/30\",\"schedule\":\"L-VT09:00-18:00/H\"},{\"from\":\"12/31\",\"to\":\"12/31\",\"schedule\":\"L-VT09:00-13:00/H\"}]"
+                        },
+                        "holidays": "http://localhost:8081/static/holidays.json"
+                    }
+                },
+                "measure": {
+                    "computing": "actual",
+                    "element": "points",
+                    "filters": {
+                        "type": "bug",
+                        "state": "to_do,in_progress"
                     },
                     "scope": {
                         "$ref": "#/context/definitions/scopes/development"
@@ -504,6 +579,50 @@
                         }
                     }
                 ]
+            },{
+                "id": "MAX_FIVE_TO_DO_STORIES",
+                "description": "Only five to do issues per person at the same time",
+                "scope": {
+                    "member": {
+                        "name": "Member",
+                        "description": "Member of a project",
+                        "type": "string"
+                    },
+                    "project": {
+                        "name": "Project",
+                        "description": "Repository project",
+                        "type": "string",
+                        "default": "1010101010"
+                    },
+                    "name": {
+                        "name": "Name",
+                        "description": "Repository name",
+                        "type": "string",
+                        "default": "1212121212"
+                    },
+                    "owner": {
+                        "name": "Owner",
+                        "description": "Repository owner",
+                        "type": "string",
+                        "default": "2323232323"
+                    }
+                },
+                "of": [
+                    {
+                        "scope": {
+                            "member": "*"
+                        },
+                        "objective": "NUMBER_OF_PENDING_ISSUES <= 5",
+                        "with": {
+                            "NUMBER_OF_PENDING_ISSUES": {}
+                        },
+                        "window": {
+                            "type": "static",
+                            "period": "daily",
+                            "initial": "2019-01-01"
+                        }
+                    }
+                ]
             },
             {
                 "id": "NO_REMAINING_POINTS",
@@ -663,6 +782,47 @@
                         "objective": "SHORT_CYCLE_TIME_ISSUES == 0",
                         "with": {
                             "SHORT_CYCLE_TIME_ISSUES": {}
+                        },
+                        "window": {
+                            "type": "static",
+                            "period": "daily",
+                            "initial": "2019-01-01"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "DIFFERENCE_IN_BUG_POINTS",
+                "description": "The number of finished (done) bug points must be greater than the number of not finished (to do or in progress) bug points",
+                "scope": {
+                    "project": {
+                        "name": "Project",
+                        "description": "Repository project",
+                        "type": "string",
+                        "default": "1010101010"
+                    },
+                    "name": {
+                        "name": "Name",
+                        "description": "Repository name",
+                        "type": "string",
+                        "default": "1212121212"
+                    },
+                    "owner": {
+                        "name": "Owner",
+                        "description": "Repository owner",
+                        "type": "string",
+                        "default": "2323232323"
+                    }
+                },
+                "of": [
+                    {
+                        "scope": {
+                            "project": "1010101010"
+                        },
+                        "objective": "FINISHED_BUG_POINTS - PENDING_BUG_POINTS >= 0",
+                        "with": {
+                            "FINISHED_BUG_POINTS": {},
+                            "PENDING_BUG_POINTS": {}
                         },
                         "window": {
                             "type": "static",
