@@ -52,7 +52,7 @@ production:
 development:
   database:
     host: localhost
-    port: 37019
+    port: 27017
     name:  registry
   email:
     defaultMailFrom: '"ISA-Group" <no-reply@isa.us.es>'

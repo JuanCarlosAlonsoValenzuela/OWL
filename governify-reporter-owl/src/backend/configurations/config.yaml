@@ -31,21 +31,17 @@ production:
     loop: true
     timer: 10000
   v1:
-    agreementURL: 'http://registry.chap.governify.io/api/v6/agreements/'
-    statesURL: 'http://registry.chap.governify.io/api/v6/states/'
+    agreementURL: 'http://registry.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}/api/v6/agreements/'
+    statesURL: 'http://registry.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}/api/v6/states/'
   v2:
-    agreementURL: 'http://registry.chap.governify.io/api/v6/agreements/'
-    statesURL: 'http://registry.chap.governify.io/api/v6/states/'
-  v4:
-    agreementURL: 'http://registry.chap.governify.io/api/v6/agreements/'
-    statesURL: 'http://registry.chap.governify.io/api/v6/states/'
+    agreementURL: 'http://registry.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}/api/v6/agreements/'
+    statesURL: 'http://registry.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}/api/v6/states/'
   registryMaxRetries: 5
-  timeBetweenRequests: 500
-  public_config: # This config will be exposed to front-end
-    registry_endpoint: 'https://registry.chap.governify.io'
-    registry_apiVersion: 6
-    dashboard_url: 'https://dashboard.chap.governify.io'
 
+  public_config: # This config will be exposed to front-end
+    registry_endpoint: 'https://registry.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}'
+    registry_apiVersion: 6
+    dashboard_url: 'https://dashboard.{{SERVICES_PREFIX}}{{DNS_SUFFIX}}'
 
 development:
   server: 
@@ -83,9 +79,6 @@ development:
     agreementURL: 'http://localhost:8081/api/v6/agreements/'
     statesURL: 'http://localhost:8081/api/v6/states/'
   v2:
-    agreementURL: 'http://localhost:8081/api/v6/agreements/'
-    statesURL: 'http://localhost:8081/api/v6/states/'
-  v4:
     agreementURL: 'http://localhost:8081/api/v6/agreements/'
     statesURL: 'http://localhost:8081/api/v6/states/'
   registryMaxRetries: 5
@@ -131,9 +124,6 @@ testing:
     agreementURL: 'http://localhost:8081/api/v6/agreements/'
     statesURL: 'http://localhost:8081/api/v6/states/'
   v2:
-    agreementURL: 'http://localhost:8081/api/v6/agreements/'
-    statesURL: 'http://localhost:8081/api/v6/states/'
-  v4:
     agreementURL: 'http://localhost:8081/api/v6/agreements/'
     statesURL: 'http://localhost:8081/api/v6/states/'
   registryMaxRetries: 5

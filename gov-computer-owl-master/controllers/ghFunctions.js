@@ -28,7 +28,7 @@ function sendRequest(query) {
       method: 'POST',
       uri: 'https://api.github.com/graphql',
       headers: {
-        'Authorization': 'bearer 7cc6467533169e239d581b91ab5a7c83457c2619',
+        'Authorization': 'bearer fb24f3240d9d5b028041ec031f5c863cfc0c5a5c',
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
         'Accept': 'application/vnd.github.starfox-preview+json'
       },
